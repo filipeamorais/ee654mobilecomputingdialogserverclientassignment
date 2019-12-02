@@ -16,8 +16,8 @@ public class ComputeService extends Service {
             new IMyAidlInterface.Stub() {
 
                 @Override
-                public String add( ) throws RemoteException {
-                    return ("hi");
+                public String clickedShow(int whichAttribute, String argument) throws RemoteException {
+                    return (argument + Integer.toString(whichAttribute));
                 }
             };
 }
