@@ -14,8 +14,6 @@ public class ComputeService extends Service {
 
     public ComputeService()  {    }
 
-    Book[] blist = new Book[100];
-
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
@@ -23,6 +21,8 @@ public class ComputeService extends Service {
 
     private final IMyAidlInterface.Stub mBinder =
             new IMyAidlInterface.Stub() {
+
+
 
                 //instantiate the book data access object
 //                BookDAO bookDAO = new BookDAO(getApplicationContext());
@@ -52,6 +52,9 @@ public class ComputeService extends Service {
                 @Override
                 public String clickedShow(int whichAttribute, String argument) throws RemoteException {
                     String str = "";
+                    Book[] blist = new Book[100];
+                    Book b1 = new Book(1,"EE654","Author-1", "Publisher-1", "2019");
+                    blist[0] = b1;
                     for (Book b : blist) {
                         String row = b.getId() + ", Title: " +
                                 b.getbookTitle() + ", Author: " +
