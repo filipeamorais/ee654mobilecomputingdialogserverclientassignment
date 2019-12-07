@@ -14,6 +14,8 @@ public class ComputeService extends Service {
 
     public ComputeService()  {    }
 
+    Book[] blist = new Book[100];
+
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
@@ -39,14 +41,26 @@ public class ComputeService extends Service {
 //                    return str;
 //                }
 
+//                @Override
+//                public String clickedShow(int whichAttribute, String argument) throws RemoteException {
+//                    String result = MainActivity.getActivity().showAllRecords();
+//
+//                    //return (argument + Integer.toString(whichAttribute));
+//                    return result;
+//                }
+
                 @Override
                 public String clickedShow(int whichAttribute, String argument) throws RemoteException {
-                    String result = MainActivity.getActivity().showAllRecords();
-
-                    //return (argument + Integer.toString(whichAttribute));
-                    return result;
+                    String str = "";
+                    for (Book b : blist) {
+                        String row = b.getId() + ", Title: " +
+                                b.getbookTitle() + ", Author: " +
+                                b.getbookAuthor() + ", Publisher: " +
+                                b.getBookPublisher() + ", Year: " + b.getbookYear();
+                        str += row + "\n";
+                    }
+                    return str;
                 }
-
 
             };
 }
