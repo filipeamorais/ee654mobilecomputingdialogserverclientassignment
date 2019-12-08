@@ -1,8 +1,11 @@
 package com.example.serverclientassignment;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class Book implements Serializable {
+public class Book implements Parcelable {
     int id;
     String bookTitle;
     String bookAuthor;
@@ -20,6 +23,26 @@ public class Book implements Serializable {
         this.bookPublisher = bookPublisher;
         this.bookYear = bookYear;
     }
+
+    protected Book(Parcel in) {
+        id = in.readInt();
+        bookTitle = in.readString();
+        bookAuthor = in.readString();
+        bookPublisher = in.readString();
+        bookYear = in.readString();
+    }
+
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
+            return new Book(in);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
 
     public int getId() { return id; }
 
@@ -48,4 +71,18 @@ public class Book implements Serializable {
     }
 
     public void setbookYear(String year) { bookYear = year; }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(bookTitle);
+        dest.writeString(bookAuthor);
+        dest.writeString(bookPublisher);
+        dest.writeString(bookYear);
+    }
 }

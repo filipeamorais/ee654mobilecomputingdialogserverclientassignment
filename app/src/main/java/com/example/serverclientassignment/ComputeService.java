@@ -49,21 +49,30 @@ public class ComputeService extends Service {
 //                    return result;
 //                }
 
+//                @Override
+//                public String clickedShow(int whichAttribute, String argument) throws RemoteException {
+//                    String str = "";
+//                    Book[] blist = new Book[100];
+//                    Book b1 = new Book(1,"EE654","Author-1", "Publisher-1", "2019");
+//                    blist[0] = b1;
+//                    for (Book b : blist) {
+//                        String row = b.getId() + ", Title: " +
+//                                b.getbookTitle() + ", Author: " +
+//                                b.getbookAuthor() + ", Publisher: " +
+//                                b.getBookPublisher() + ", Year: " + b.getbookYear();
+//                        str += row + "\n";
+//                    }
+//                    return str;
+//                }
                 @Override
-                public String clickedShow(int whichAttribute, String argument) throws RemoteException {
-                    String str = "";
-                    Book[] blist = new Book[100];
+                public Book[] getBookList() {
                     Book b1 = new Book(1,"EE654","Author-1", "Publisher-1", "2019");
+                    Book b2 = new Book(2,"Title-2","Author-2", "Publisher-2", "2018");
+                    Book[] blist = new Book[2];
                     blist[0] = b1;
-                    for (Book b : blist) {
-                        String row = b.getId() + ", Title: " +
-                                b.getbookTitle() + ", Author: " +
-                                b.getbookAuthor() + ", Publisher: " +
-                                b.getBookPublisher() + ", Year: " + b.getbookYear();
-                        str += row + "\n";
-                    }
-                    return str;
+                    blist[1] = b2;
+                    return blist;
                 }
-
             };
+
 }
