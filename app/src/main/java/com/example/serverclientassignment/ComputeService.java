@@ -53,13 +53,38 @@ public class ComputeService extends Service {
                     return str;
                 }
 
+                public String showBy(String selection, String argument){
+                    bookDAO.open();
+                    Book b1 = new Book(1,"EE655","Author-2", "Publisher-2", "2009");
+                    bookDAO.addBook(b1);
+                    List<Book> books = bookDAO.getBooks(selection, argument);
+                    String str = "";
+                    for (Book b : books) {
+                        String row = b.getId() + ": Title: " +
+                                b.getbookTitle()  + ", Author: " +
+                                b.getbookAuthor() + ", Publisher: " +
+                                b.getBookPublisher() + ", Year: " + b.getbookYear();
+                        str += row + "\n";
+                    }
+                    bookDAO.close();
+                    return str;
+                }
+
                 @Override
                 public String clickedShow(int whichAttribute, String argument) throws RemoteException {
-                    //String result = MainActivity.getActivity().showAllRecords();
-                    String result = showAllRecords();
+                    String result = "0";
+                    switch (whichAttribute){
+                        case 0:
+                            result = showAllRecords();
+                            return result;
+                        case 1:
+                            result = showBy(DBHandler.KEY_TITLE, argument);
+                            return result;
+                    }
 
-                    //return (argument + Integer.toString(whichAttribute));
-                    return result;
+
+                    return (argument + Integer.toString(whichAttribute));
+
                 }
 
 //                @Override
