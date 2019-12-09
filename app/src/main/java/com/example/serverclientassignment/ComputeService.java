@@ -13,7 +13,6 @@ import static com.example.serverclientassignment.MainActivity.getActivity;
 
 public class ComputeService extends Service {
 
-    TextView textViewResult;
     BookDAO bookDAO;
     public ComputeService()  {    }
 
@@ -25,8 +24,6 @@ public class ComputeService extends Service {
     //** Called when the service is being created. */
     @Override
     public void onCreate() {
-//        textViewResult = (TextView) textViewResult.findViewById(R.id.textViewResult);
-//        textViewResult.setText("here1");
         bookDAO = new BookDAO(this);
 
     }
@@ -35,7 +32,6 @@ public class ComputeService extends Service {
             new IMyAidlInterface.Stub() {
 
                 //instantiate the book data access object
-//                BookDAO bookDAO = new BookDAO(getApplicationContext());
                 public String showAllRecords(){
                     bookDAO.open();
                     Book b1 = new Book(1,"EE654","Author-1", "Publisher-1", "2019");
@@ -70,9 +66,25 @@ public class ComputeService extends Service {
                     return str;
                 }
 
+                public String deleteAllRecords(){
+                    bookDAO.open();
+                    bookDAO.deleteAllBooks();
+                    bookDAO.close();
+                    String str = "All books deleted!";
+                    return str;
+                }
+
+                public String deleteBy(String selection, String argument){
+                    bookDAO.open();
+                    bookDAO.deleteBooks(selection, argument);
+                    bookDAO.close();
+                    String str = "Book(s) deleted!";
+                    return str;
+                }
+
                 @Override
                 public String clickedShow(int whichAttribute, String argument) throws RemoteException {
-                    String result = "0";
+                    String result = "Empty";
                     switch (whichAttribute){
                         case 0:
                             result = showAllRecords();
@@ -80,28 +92,42 @@ public class ComputeService extends Service {
                         case 1:
                             result = showBy(DBHandler.KEY_TITLE, argument);
                             return result;
+                        case 2:
+                            result = showBy(DBHandler.KEY_AUTHOR, argument);
+                            return result;
+                        case 3:
+                            result = showBy(DBHandler.KEY_PUBLISHER, argument);
+                            return result;
+                        case 4:
+                            result = showBy(DBHandler.KEY_YEAR, argument);
+                            return result;
                     }
-
-
-                    return (argument + Integer.toString(whichAttribute));
-
+                    return ("Nothing was chosen");
                 }
 
-//                @Override
-//                public String clickedShow(int whichAttribute, String argument) throws RemoteException {
-//                    String str = "";
-//                    Book[] blist = new Book[100];
-//                    Book b1 = new Book(1,"EE654","Author-1", "Publisher-1", "2019");
-//                    blist[0] = b1;
-//                    for (Book b : blist) {
-//                        String row = b.getId() + ", Title: " +
-//                                b.getbookTitle() + ", Author: " +
-//                                b.getbookAuthor() + ", Publisher: " +
-//                                b.getBookPublisher() + ", Year: " + b.getbookYear();
-//                        str += row + "\n";
-//                    }
-//                    return str;
-//                }
+                @Override
+                public String clickedDelete(int whichAttribute, String argument) throws RemoteException {
+                    String result = "Empty";
+                    switch (whichAttribute){
+                        case 0:
+                            result = deleteAllRecords();
+                            return result;
+                        case 1:
+                            result = deleteBy(DBHandler.KEY_TITLE, argument);
+                            return result;
+                        case 2:
+                            result = deleteBy(DBHandler.KEY_AUTHOR, argument);
+                            return result;
+                        case 3:
+                            result = deleteBy(DBHandler.KEY_PUBLISHER, argument);
+                            return result;
+                        case 4:
+                            result = deleteBy(DBHandler.KEY_YEAR, argument);
+                            return result;
+                    }
+                    return ("Nothing was chosen");
+                }
+
                 Book[] blist = new Book[10];
 
                 @Override
