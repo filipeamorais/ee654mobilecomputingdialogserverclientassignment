@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
@@ -79,6 +80,22 @@ public class ComputeService extends Service {
                     bookDAO.deleteBooks(selection, argument);
                     bookDAO.close();
                     String str = "Book(s) deleted!";
+                    return str;
+                }
+
+                public String insertCommand(Book filledBook) {
+                    bookDAO.open();
+                    bookDAO.addBook(filledBook);
+                    bookDAO.close();
+                    String str = "Book added!";
+                    return str;
+                }
+
+                public String updateCommand(Book filledBook) {
+                    bookDAO.open();
+                    bookDAO.updateBook(filledBook);
+                    bookDAO.close();
+                    String str = "Book updated!";
                     return str;
                 }
 
