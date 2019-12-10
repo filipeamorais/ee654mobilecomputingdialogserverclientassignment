@@ -35,8 +35,6 @@ public class ComputeService extends Service {
                 //instantiate the book data access object
                 public String showAllRecords(){
                     bookDAO.open();
-                    Book b1 = new Book(1,"EE654","Author-1", "Publisher-1", "2019");
-                    bookDAO.addBook(b1);
                     List<Book> books = bookDAO.getAllBooks();
                     String str = "1";
                     for (Book b : books) {
@@ -52,8 +50,6 @@ public class ComputeService extends Service {
 
                 public String showBy(String selection, String argument){
                     bookDAO.open();
-                    Book b1 = new Book(1,"EE655","Author-2", "Publisher-2", "2009");
-                    bookDAO.addBook(b1);
                     List<Book> books = bookDAO.getBooks(selection, argument);
                     String str = "";
                     for (Book b : books) {
