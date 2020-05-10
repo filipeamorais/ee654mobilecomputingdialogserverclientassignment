@@ -1,4 +1,4 @@
-# Android client and server app for book databae
+# Android server app for book databae
 Android app for the server side of client and server application to manipulate a book database.
 
 # Running
