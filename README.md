@@ -1,4 +1,4 @@
-# Android server app for book records database
+# Android server app for a book records database
 Android app for the server side of client and server application to manipulate a book records database.
 
 # Running
